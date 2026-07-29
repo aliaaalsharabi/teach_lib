@@ -3,10 +3,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:path_provider/path_provider.dart';
-import '../database/database_helper.dart';
-import '../models/enums/borrowing.dart';
-import '../models/enums/book.dart';
-import '../models/enums/borrowing_status.dart';  // ✅ استيراد الـ enum مع الـ extension
+import 'package:teach_lib/database/database_helper.dart';
+import 'package:teach_lib/models/enums/borrowing.dart';
+import 'package:teach_lib/models/enums/book.dart';
+import 'package:teach_lib/models/enums/borrowing_status.dart';
 
 class ReportService {
   final DatabaseHelper _db = DatabaseHelper();

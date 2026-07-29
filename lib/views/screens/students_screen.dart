@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../viewmodels/student_viewmodel.dart';
-import '../../models/enums/student.dart';
+import 'package:teach_lib/viewmodels/student_viewmodel.dart';
+import 'package:teach_lib/models/enums/student.dart';
 
 class StudentsScreen extends StatefulWidget {
   const StudentsScreen({super.key});

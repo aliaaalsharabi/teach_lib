@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../viewmodels/borrowing_viewmodel.dart';
-import '../../viewmodels/student_viewmodel.dart';
-import '../../viewmodels/book_viewmodel.dart';
-import '../../models/enums/student.dart';
-import '../../models/enums/book.dart';
+import 'package:teach_lib/viewmodels/borrowing_viewmodel.dart';
+import 'package:teach_lib/viewmodels/student_viewmodel.dart';
+import 'package:teach_lib/viewmodels/book_viewmodel.dart';
+import 'package:teach_lib/models/enums/student.dart';
+import 'package:teach_lib/models/enums/book.dart';
 
 class BorrowScreen extends StatefulWidget {
   const BorrowScreen({super.key}); // ✅ هذا مسموح به

@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:teach_lib/models/enums/student.dart';
 import 'package:teach_lib/models/enums/book.dart';
 import 'package:teach_lib/models/enums/borrowing.dart';
-import '../models/enums/borrowing_status.dart';
+import 'package:teach_lib/models/enums/borrowing_status.dart';
 
 class DatabaseHelper {
   // Singleton pattern

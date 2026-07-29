@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teach_lib/database//database_helper.dart';
+import 'package:teach_lib/database/database_helper.dart';
 import 'package:teach_lib/models/enums/book.dart';
 
 class BookViewModel extends ChangeNotifier {

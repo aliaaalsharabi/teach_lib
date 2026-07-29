@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
-import '../database/database_helper.dart';
-import '../models/enums/student.dart';
-import '../models/enums/book.dart';
+import 'package:teach_lib/database/database_helper.dart';
+import 'package:teach_lib/models/enums/student.dart';
+import 'package:teach_lib/models/enums/book.dart';
 
 class ImportService {
   final DatabaseHelper _db = DatabaseHelper();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../viewmodels/book_viewmodel.dart';
-import '../../models/enums/book.dart';
+import 'package:teach_lib/viewmodels/book_viewmodel.dart';
+import 'package:teach_lib/models/enums/book.dart';
 
 class BooksScreen extends StatefulWidget {
   const BooksScreen({super.key});
