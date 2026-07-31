@@ -46,7 +46,7 @@ class _BooksScreenState extends State<BooksScreen> {
                 if (titleController.text.isNotEmpty) {
                   final book = Book(
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
-                    index: int.tryParse(indexController.text) ?? 0,
+                    bookIndex: int.tryParse(indexController.text) ?? 0,
                     title: titleController.text,
                     section: sectionController.text,
                     isAvailable: true,
@@ -99,7 +99,7 @@ class _BooksScreenState extends State<BooksScreen> {
                 final book = viewModel.books[index];
                 return ListTile(
                   leading: CircleAvatar(
-                    child: Text('${book.index}'),
+                    child: Text('${book.bookIndex}'),
                   ),
                   title: Text(book.title),
                   subtitle: Text(book.section),

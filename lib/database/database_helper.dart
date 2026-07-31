@@ -1,12 +1,11 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:teach_lib/models/enums/student.dart';
-import 'package:teach_lib/models/enums/book.dart';
-import 'package:teach_lib/models/enums/borrowing.dart';
-import 'package:teach_lib/models/enums/borrowing_status.dart';
+import '../models/enums/student.dart';
+import '../models/enums/book.dart';
+import '../models/enums/borrowing.dart';
+import '../models/enums/borrowing_status.dart';
 
 class DatabaseHelper {
-  // Singleton pattern
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
   DatabaseHelper._internal();
@@ -23,7 +22,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'library_school.db');
     return await openDatabase(
       path,
-      version: 2,
+      version: 2, // تم رفع الإصدار بسبب تغيير اسم العمود
       onCreate: (db, version) async {
         // جدول الطلاب
         await db.execute('''
@@ -34,11 +33,11 @@ class DatabaseHelper {
             division TEXT
           )
         ''');
-        // جدول الكتب
+        // جدول الكتب (تم تغيير index -> bookIndex)
         await db.execute('''
           CREATE TABLE books(
             id TEXT PRIMARY KEY,
-            index INTEGER UNIQUE NOT NULL,
+            bookIndex INTEGER UNIQUE NOT NULL,
             title TEXT NOT NULL,
             section TEXT,
             isAvailable INTEGER DEFAULT 1
@@ -60,7 +59,27 @@ class DatabaseHelper {
         ''');
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        // هنا نضع أي تعديلات مستقبلية على قاعدة البيانات
+        // في حالة الترقية من الإصدار 1 إلى 2
+        if (oldVersion < 2) {
+          // ننشئ جدولاً مؤقتاً بالهيكل الجديد
+          await db.execute('''
+            CREATE TABLE books_temp(
+              id TEXT PRIMARY KEY,
+              bookIndex INTEGER UNIQUE NOT NULL,
+              title TEXT NOT NULL,
+              section TEXT,
+              isAvailable INTEGER DEFAULT 1
+            )
+          ''');
+          // ننسخ البيانات مع تغيير اسم العمود (إذا كانت هناك بيانات)
+          await db.execute('''
+            INSERT INTO books_temp (id, bookIndex, title, section, isAvailable)
+            SELECT id, index, title, section, isAvailable FROM books
+          ''');
+          // نحذف الجدول القديم ونعيد تسمية الجديد
+          await db.execute('DROP TABLE books');
+          await db.execute('ALTER TABLE books_temp RENAME TO books');
+        }
       },
     );
   }
@@ -106,7 +125,7 @@ class DatabaseHelper {
 
   Future<List<Book>> getAllBooks() async {
     final db = await database;
-    final result = await db.query('books', orderBy: 'index');
+    final result = await db.query('books', orderBy: 'bookIndex');
     return result.map((e) => Book.fromMap(e)).toList();
   }
 
@@ -148,7 +167,7 @@ class DatabaseHelper {
     );
   }
 
-  // ========== عمليات الإعارة (الأهم) ==========
+  // ========== عمليات الإعارة ==========
   Future<void> insertBorrowing(Borrowing borrowing) async {
     final db = await database;
     await db.insert('borrowings', borrowing.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);

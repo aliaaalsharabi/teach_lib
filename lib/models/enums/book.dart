@@ -1,13 +1,13 @@
 class Book {
   final String id;
-  final int index; // رقم الفهرس (باركود)
+  final int bookIndex; // تم تغييره من index إلى bookIndex
   final String title;
   final String section;
   final bool isAvailable;
 
   Book({
     required this.id,
-    required this.index,
+    required this.bookIndex,
     required this.title,
     required this.section,
     required this.isAvailable,
@@ -16,17 +16,17 @@ class Book {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'index': index,
+      'bookIndex': bookIndex,
       'title': title,
       'section': section,
-      'isAvailable': isAvailable ? 1 : 0, // SQLite لا يدعم bool مباشرة
+      'isAvailable': isAvailable ? 1 : 0,
     };
   }
 
   factory Book.fromMap(Map<String, dynamic> map) {
     return Book(
       id: map['id'] ?? '',
-      index: map['index'] ?? 0,
+      bookIndex: map['bookIndex'] ?? 0,
       title: map['title'] ?? '',
       section: map['section'] ?? '',
       isAvailable: (map['isAvailable'] ?? 1) == 1,

@@ -41,7 +41,7 @@ class ImportService {
         if (row.length < 3) continue;
         final book = Book(
           id: 'book_${DateTime.now().millisecondsSinceEpoch}_${count++}',
-          index: int.tryParse(row[0].toString()) ?? 0,
+          bookIndex: int.tryParse(row[0].toString()) ?? 0,
           title: row[1].toString().trim(),
           section: row[2].toString().trim(),
           isAvailable: true,
